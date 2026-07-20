@@ -26,6 +26,8 @@ class VaelenEngine:
                 print("  help  - Show commands")
                 print("  next  - Advance one day")
                 print("  character - Display the player character sheet")
+                print("  xp <amount> - Give the player experience")
+                print("  spend <stat> - Spend one point on a character stat")
                 print("  quit  - Exit game")
 
             elif command == "next":
@@ -34,6 +36,31 @@ class VaelenEngine:
             elif command == "character":
                 player = self.world.characters[0]
                 print(player.display_sheet())
+            
+            elif command.startswith("xp "):
+                player = self.world.characters[0]
+
+                try:
+                    amount = int(command.split()[1])
+                    player.gain_experience(amount)
+                    print(f"\nGained {amount} experience.")
+                    print(player.display_sheet())
+                except (ValueError, IndexError):
+                    print("Usage: xp <amount>")
+            
+            elif command.startswith("spend "):
+                player = self.world.characters[0]
+                stat_name = command.split()[1].lower()
+
+                if player.spend_stat_point(stat_name):
+                    print(f"\nIncreased {stat_name} by 1.")
+                    print(player.display_sheet())
+                else:
+                    print(
+                        "\nUnable to spent stat point. "
+                        "Check the stat name and your available points."
+                    )
+            
             elif command == "test":
                 player = self.world.characters[0]
 

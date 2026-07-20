@@ -78,6 +78,44 @@ class Character:
         self.current_health = min(self.current_health, self.max_health)
         self.current_stamina = min(self.current_stamina, self.max_stamina)
     
+    def gain_experience(self, amount):
+        """Award experience and handle leveling."""
+        
+        self.experience += amount
+
+        while self.experience >= self.experience_to_next_level:
+            self.level_up()
+
+    def level_up(self):
+        """Increase the character's level."""
+        self.experience -= self.experience_to_next_level
+        self.level += 1
+        self.unspent_stat_points += 5
+        self.experience_to_next_level += 50
+        print(f"\n*** LEVEL UP! You are now level {self.level}! ***")
+
+    def spend_stat_point(self, stat_name):
+        """Spend one available point to increase a base stat."""
+
+        valid_stats = {
+            "strength",
+            "agility",
+            "endurance",
+            "intelligence",
+            "charisma",
+        }
+
+        if stat_name not in valid_stats:
+            return False
+        
+        if self.unspent_stat_points <= 0:
+            return False
+
+        self.modify_stat(stat_name, 1)
+        self.unspent_stat_points -= 1
+
+        return True
+   
     def display_sheet(self):
         """Return a formatted character sheet."""
         return (
