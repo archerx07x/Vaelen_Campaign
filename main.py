@@ -1,3 +1,10 @@
-from engine.menu import show_main_menu
+from engine.core.engine import VaelenEngine
 
-show_main_menu()
+
+def main():
+    engine = VaelenEngine()
+    engine.start()
+
+
+if __name__ == "__main__":
+    main()
