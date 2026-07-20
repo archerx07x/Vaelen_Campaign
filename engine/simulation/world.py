@@ -1,3 +1,6 @@
+from engine.simulation.character import Character
+
+
 class World:
     """Represents the game world."""
 
@@ -6,8 +9,15 @@ class World:
         self.year = 1000
         self.season = "Spring"
 
+        self.characters = [
+            Character("Player", 25)
+        ]
+
     def advance_day(self):
         self.day += 1
+
+        for character in self.characters:
+            character.advance_day()
 
         if self.day > 90:
             self.day = 1
