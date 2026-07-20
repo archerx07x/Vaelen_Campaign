@@ -24,6 +24,12 @@ class Character:
         self.current_health = self.max_health
         self.current_stamina = self.max_stamina
 
+        self.level = 1
+        self.experience = 0
+        self.experience_to_next_level = 100
+
+        self.unspent_stat_points = 0
+
     @property
     def max_health(self):
         """Calculate maximum health from endurance."""
@@ -79,6 +85,9 @@ class Character:
             f"=========================\n"
             f"{self.name}\n"
             f"Age: {self.age}\n\n"
+            f"Level:        {self.level}\n"
+            f"Experience:   {self.experience}/{self.experience_to_next_level}\n"
+            f"Stat Points:  {self.unspent_stat_points}\n\n"
             f"Strength:     {self.base_strength}\n"
             f"Agility:      {self.base_agility}\n"
             f"Endurance:    {self.base_endurance}\n"
